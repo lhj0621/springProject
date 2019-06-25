@@ -31,7 +31,7 @@
 					<div class="col-lg-2 col-md-2 mt-sm-30">
 					</div>
 					<div class="col-lg-8">
-				          <form class="form-contact contact_form" th:action="@{'/answers/{id}/update2'(id=${answer.id})}" method="post" id="contactForm" novalidate="novalidate" th:object="${answer}">
+				          <form class="form-contact contact_form" th:action="@{'/questions/{quid}/answers/{id}/update2'(quid=${question},id=${answer.id})}" method="post" id="contactForm" novalidate="novalidate" th:object="${answer}">
 				            <div class="row">
 				         	글쓴이
 				              <div class="col-12">

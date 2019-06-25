@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.UserService;
@@ -31,7 +32,7 @@ public class UserController {
 		return "redirect:/";
 	}	
 	@GetMapping("")
-	public String getUsers(Model model, HttpSession session, Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
+	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
 		System.out.println(pageNo);
 		model.addAttribute("users", userService.getUsers(pageNo));
 		return "/users/list";

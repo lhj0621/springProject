@@ -89,10 +89,10 @@
                                     <a href="#" class="btn-reply text-uppercase">reply</a>
                                  </div>
                                  <div th:if="${same}" class="nav-item">
-                            <a class="nav-link" th:href="@{'/answers/{id}/update'(id=${answer.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>글수정</p></a>
+                            <a class="nav-link" th:href="@{'/questions/{quid}/answers/{id}/update'(quid=${question.id},id=${answer.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>글수정</p></a>
                       			</div>
                       	<div th:if="${same}" class="nav-item">
-                            <a class="nav-link" th:href="@{'/answers/{id}/delete'(id=${answer.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>댓글 삭제</p></a>
+                            <a class="nav-link" th:href="@{'/questions/{quid}/answers/{id}/delete'(quid=${question.id},id=${answer.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>댓글 삭제</p></a>
                       	</div>
                               </div>
                            </div>

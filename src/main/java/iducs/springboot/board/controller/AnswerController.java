@@ -34,27 +34,29 @@ public class AnswerController {
 	}
 	
 	@GetMapping("/{id}/update")
-	public String questionupdateForm(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
+	public String questionupdateForm(@PathVariable Long questionId,@PathVariable(value = "id") Long id, HttpSession session, Model model) {
 		if(HttpSessionUtils.isEmpty(session, "user")){
 			return "redirect:/users/login-form";
 		}
 		Answer answer = answerService.getAnswerById(id);
+		//Question question = questionService.getQuestionById(questionId);
+		model.addAttribute("question", questionId);
 		model.addAttribute("answer", answer);
 		return "/answer/update";
 	}	
 
 	@GetMapping("/{id}/delete")
-	public String deleteUserById(@PathVariable(value = "id") Long id, Model model) {
+	public String deleteUserById(@PathVariable Long questionId,@PathVariable(value = "id") Long id, Model model) {
 		Answer answer = answerService.getAnswerById(id);
 		answerService.deleteAnswer(answer);
-		return "redirect:/";
+		return String.format("redirect:/questions/%d", questionId);
 	}
 
 	@PostMapping("/{id}/update2")
-	public String updateQuestionById(@PathVariable(value = "id") Long id, String contents, Model model) {
+	public String updateQuestionById(@PathVariable Long questionId,@PathVariable(value = "id") Long id, String contents) {
 		Answer answer = answerService.getAnswerById(id);
 		answer.setContents(contents);
 		answerService.updateAnswer(answer);
-		return "redirect:/";
+		return String.format("redirect:/questions/%d", questionId);
 	}
 }
