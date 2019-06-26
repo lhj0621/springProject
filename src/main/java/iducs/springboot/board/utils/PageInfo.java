@@ -1,25 +1,25 @@
 package iducs.springboot.board.utils;
 
 public class PageInfo {
-	private long startPage; //시작페이지
-	private long endPage;   //끝페이지
-	private long curPage;   //현제페이지
+	private long startPage; //시작 페이지
+	private long endPage;   //끝 페이지
+	private long curPage;   //현제 페이지
 	private long startCut;  //첫 번호
 	private long endCut;    //끝 번호
-	private boolean prevPage;  //이전페이지
-	private boolean nextPage;   //다음페이지
+	private boolean prevPage;  //이전 페이지
+	private boolean nextPage;  //다음 페이지
 	
 	public PageInfo(long curPage, long endNum) {
 		this.startPage = 1;
 		this.curPage = curPage;
 		this.endPage = endNum;
 	}
+	
 	public void setting(long pageCount) {
-		startCut = (curPage -1) / pageCount * pageCount +1;
+		startCut = (curPage -1) / pageCount * pageCount +1; 
 		endCut = (startCut + pageCount - 1 < endPage) ? startCut + pageCount -1 : endPage;
 		prevPage = (startCut != 1) ? true : false;
 		nextPage = (startCut != 1) ? true : false;
-		
 	}
 	
 	public long getStartPage() {
@@ -64,5 +64,4 @@ public class PageInfo {
 	public void setNextPage(boolean nextPage) {
 		this.nextPage = nextPage;
 	}
-
 }
