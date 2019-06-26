@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
@@ -27,9 +28,9 @@ public class QuerstionController {
 	QuestionService questionService; // 의존성 주입(Dependency Injection) :
 	
 	@GetMapping("")
-	public String getAllUsers(Model model, HttpSession session, Long pageNo) {
+	public String getAllUsers(Model model, HttpSession session, @RequestParam(defaultValue="1") Long pageNo) {
 		List<Question> questions = questionService.getQuestions(pageNo);
-		model.addAttribute("questions", questionService.getQuestions(pageNo));
+		model.addAttribute("questions", questions);
 		return "/questions/list";
 	}
 	/*

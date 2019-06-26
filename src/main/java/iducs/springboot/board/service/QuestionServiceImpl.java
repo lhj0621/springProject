@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import iducs.springboot.board.domain.Answer;
 import iducs.springboot.board.domain.Question;
+import iducs.springboot.board.domain.User;
 import iducs.springboot.board.entity.AnswerEntity;
 import iducs.springboot.board.entity.QuestionEntity;
 import iducs.springboot.board.entity.UserEntity;
@@ -18,54 +19,56 @@ import iducs.springboot.board.repository.QuestionRepository;
 
 @Service("questionService")
 public class QuestionServiceImpl implements QuestionService {
-	
-	@Autowired QuestionRepository repository;
+
+	@Autowired
+	QuestionRepository repository;
 
 	@Override
 	public Question getQuestionById(long id) {
 		QuestionEntity entity = repository.findById(id).get();
 		Question question = entity.buildDomain();
-		
-		//추가
+
+		// 추가
 		// entity 객체로 부터 AnswerEntity ArrayList -> Answer ArrayList
 		List<Answer> answerList = new ArrayList<Answer>();
-		for(AnswerEntity answerEntity : entity.getAnswers())
+		for (AnswerEntity answerEntity : entity.getAnswers())
 			answerList.add(answerEntity.buildDomain());
 		question.setAnswers(answerList);
-		
+
 		return question;
 	}
+
 	@Override
 	public List<Question> getQuestions() {
 		/*
-		 * 1. Repository로 부터 모든 자료를 가져와 Enitiy 리스트에 저장한다.
-		 * 2. 
+		 * 1. Repository로 부터 모든 자료를 가져와 Enitiy 리스트에 저장한다. 2.
 		 */
 		List<QuestionEntity> entities = repository.findAll(new Sort(Sort.Direction.DESC, "createTime"));
-		
+
 		List<Question> questions = new ArrayList<Question>();
-		for(QuestionEntity entity : entities) {
+		for (QuestionEntity entity : entities) {
 			Question question = entity.buildDomain();
 			questions.add(question);
 		}
-		return questions;			
+		return questions;
 	}
+
 	@Override
 	public List<Question> getQuestions(Long pageNo) {
 		/*
-		 * 1. Repository로 부터 모든 자료를 가져와 Enitiy 리스트에 저장한다.
-		 * 2. 
+		 * 1. Repository로 부터 모든 자료를 가져와 Enitiy 리스트에 저장한다. 2.
 		 */
 		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 3, new Sort(Sort.Direction.DESC, "id"));
 		Page<QuestionEntity> entities = repository.findAll(pageRequest);
-		//List<QuestionEntity> entities = repository.findAll(new Sort(Sort.Direction.DESC, "createTime"));
-		
+		// List<QuestionEntity> entities = repository.findAll(new
+		// Sort(Sort.Direction.DESC, "createTime"));
+
 		List<Question> questions = new ArrayList<Question>();
-		for(QuestionEntity entity : entities) {
+		for (QuestionEntity entity : entities) {
 			Question question = entity.buildDomain();
 			questions.add(question);
 		}
-		return questions;			
+		return questions;
 	}
 
 	@Override
@@ -76,8 +79,14 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public List<Question> getQuestionsByPage(int index, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		PageRequest pageRequest = PageRequest.of((int) (index - 1), size, new Sort(Sort.Direction.DESC, "id"));
+		Page<QuestionEntity> entities = repository.findAll(pageRequest);
+		List<Question> questions = new ArrayList<Question>();
+		for (QuestionEntity entity : entities) {
+			Question question = entity.buildDomain();
+			questions.add(question);
+		}
+		return questions;
 	}
 
 	@Override
@@ -85,7 +94,7 @@ public class QuestionServiceImpl implements QuestionService {
 		QuestionEntity entity = new QuestionEntity();
 		entity.buildEntity(question);
 		repository.save(entity);
-		
+
 	}
 
 	@Override
@@ -93,7 +102,7 @@ public class QuestionServiceImpl implements QuestionService {
 		QuestionEntity entity = new QuestionEntity();
 		entity.buildEntity(question);
 		repository.save(entity);
-		
+
 	}
 
 	@Override
@@ -101,11 +110,7 @@ public class QuestionServiceImpl implements QuestionService {
 		QuestionEntity entity = new QuestionEntity();
 		entity.buildEntity(question);
 		repository.delete(entity);
-		
+
 	}
-
-	
-
-	
 
 }

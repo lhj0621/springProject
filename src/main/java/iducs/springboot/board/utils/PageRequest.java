@@ -6,6 +6,7 @@ public class PageRequest {
 	private int page;
     private int size;
     private Sort.Direction direction;
+
     public void setPage(int page) {
         this.page = page <= 0 ? 1 : page;
     }
@@ -21,4 +22,7 @@ public class PageRequest {
     public org.springframework.data.domain.PageRequest of() {
         return org.springframework.data.domain.PageRequest.of(page -1, size, direction, "createdAt");
     }
+
+	
+	
 }

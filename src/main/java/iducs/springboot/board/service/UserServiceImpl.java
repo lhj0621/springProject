@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUsers(PageRequest pageRequest) {
 		List<User> users = new ArrayList<User>();
 		Page<UserEntity> entities = repository.findAll(pageRequest);
+		System.out.println(entities);
 		for(UserEntity entity : entities) {
 			User user = entity.buildDomain();
 			users.add(user);
@@ -86,8 +87,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getUsersByPage(int index, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		PageRequest pageRequest = PageRequest.of((int) (index - 1), size, new Sort(Sort.Direction.DESC, "id"));
+		Page<UserEntity> entities = repository.findAll(pageRequest);
+		List<User> users = new ArrayList<User>();
+		for(UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
 	}
 
 	@Override
