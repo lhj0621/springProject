@@ -57,17 +57,16 @@
 
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
+                                <li class="page-item" th:if="${pageinfo.prevPage}">
+                                    <a th:href="@{'/questions?pageNo={idx}'(idx=${pageinfo.startCut-1})}" class="page-link" aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item active">
-                                    <a href="/questions?pageNo=${ㅑ}" class="page-link">1</a>
-                                </li>
-                              
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
+                                <li class="page-item"th:each="idx : ${#numbers.sequence(pageinfo.startCut,pageinfo.endCut)}">
+                                    <a th:href="@{'/questions?pageNo={idx}'(idx=${idx})}" class="page-link" th:text="${idx}"></a>
+                                </li>  
+                                <li class="page-item" th:if="${pageinfo.nextPage}">
+                                    <a th:href="@{'/questions?pageNo={idx}'(idx=${pageinfo.endCut+1})}" class="page-link" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
                                 </li>
