@@ -9,17 +9,17 @@ public class PageInfo {
 	private boolean prevPage;  //이전 페이지
 	private boolean nextPage;  //다음 페이지
 	
-	public PageInfo(long curPage, long endNum) {
+	public PageInfo(long curPage, long endPage) {
 		this.startPage = 1;
 		this.curPage = curPage;
-		this.endPage = endNum;
+		this.endPage = endPage;
 	}
 	
 	public void setting(long pageCount) {
 		startCut = (curPage -1) / pageCount * pageCount +1; 
 		endCut = (startCut + pageCount - 1 < endPage) ? startCut + pageCount -1 : endPage;
 		prevPage = (startCut != 1) ? true : false;
-		nextPage = (startCut != 1) ? true : false;
+		nextPage = (startCut +pageCount <= endPage) ? true : false;
 	}
 	
 	public long getStartPage() {

@@ -54,7 +54,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<Question> getQuestions(Long pageNo) {
+	public List<Question> getQuestions(int pageNo) {
 		/*
 		 * 1. Repository로 부터 모든 자료를 가져와 Enitiy 리스트에 저장한다. 2.
 		 */
