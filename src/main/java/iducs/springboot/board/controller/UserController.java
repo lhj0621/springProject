@@ -1,5 +1,7 @@
 package iducs.springboot.board.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.UserService;
+import iducs.springboot.board.utils.PageInfo;
 
 @Controller
 @RequestMapping("/users")
@@ -32,11 +36,23 @@ public class UserController {
 		return "redirect:/";
 	}	
 	@GetMapping("")
+	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") int pageNo,@RequestParam(defaultValue="3") int size) { //@PathVariable(value = "pageNo") Long pageNo) {
+		List<User> users = userService.getUsersByPage(pageNo,size);
+		PageInfo pageinfo = new PageInfo(pageNo,userService.getUsers().size()/size+1);
+		pageinfo.setting(2);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("pageinfo", pageinfo);
+		return "/users/list";
+	}
+	/*
+	@GetMapping("")
 	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
 		System.out.println(pageNo);
 		model.addAttribute("users", userService.getUsers(pageNo));
 		return "/users/list";
-	}	
+	}
+	*/	
 	@GetMapping("/{id}")
 	public String getUserById(@PathVariable(value = "id") Long id, Model model) {
 		User user = userService.getUserById(id);
