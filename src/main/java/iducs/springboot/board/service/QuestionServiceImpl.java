@@ -84,6 +84,12 @@ public class QuestionServiceImpl implements QuestionService {
 		List<Question> questions = new ArrayList<Question>();
 		for (QuestionEntity entity : entities) {
 			Question question = entity.buildDomain();
+			
+			List<Answer> answerList = new ArrayList<Answer>();
+			for(AnswerEntity answerEntity : entity.getAnswers())
+				answerList.add(answerEntity.buildDomain());
+			question.setAnswers(answerList);
+			
 			questions.add(question);
 		}
 		return questions;

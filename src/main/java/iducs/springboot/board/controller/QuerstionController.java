@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
+import iducs.springboot.board.service.AnswerService;
 import iducs.springboot.board.service.QuestionService;
 import iducs.springboot.board.utils.HttpSessionUtils;
 import iducs.springboot.board.utils.PageInfo;
@@ -42,7 +43,7 @@ public class QuerstionController {
 		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
 		pageinfo.setting(2);
 		model.addAttribute("questions", questions);
-		model.addAttribute("pageinfo", pageinfo);
+		model.addAttribute("pageinfo", pageinfo);	
 		
 		System.out.println("총 개시글 수 "+questionService.getQuestions().size());
 		System.out.println("시작 페이지 "+pageinfo.getStartPage());
