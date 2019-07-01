@@ -8,6 +8,9 @@ import iducs.springboot.board.domain.Question;
 public interface AnswerService {
 	Answer getAnswerById(long id); // primary key인 id 값을 가진 질문 조회
 	List<Answer> getAnswers(); // 모든 질문  조회
+	List<Answer> getAnswers(int pageNo,long questionId);
+	List<Answer> getAnswersByPage(int index, int size);
+	
 	
 	void saveAnswer(Answer answer); // 질문 생성
 	void updateAnswer(Answer answer); // 질문 수정

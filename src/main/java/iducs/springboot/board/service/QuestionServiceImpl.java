@@ -37,6 +37,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 		return question;
 	}
+	
+
+
 
 	@Override
 	public List<Question> getQuestions() {
@@ -118,5 +121,6 @@ public class QuestionServiceImpl implements QuestionService {
 		repository.delete(entity);
 
 	}
+
 
 }

@@ -60,6 +60,7 @@ public class HomeController {
 			return "redirect:/users/login-form";
 		}
 		session.setAttribute("user", sessionUser);
+		
 		return "redirect:/questions?pageNo=1";
 	}	
 	

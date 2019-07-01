@@ -68,7 +68,7 @@
                </div>
                <div class="comments-area">
                   <h4><a name="comment-area"></a>Comments</h4>
-                  <div class="comment-list" th:each="answer : ${question.answers}">
+                  <div class="comment-list" th:each="answer : ${answers}">
                      <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
                            <div class="thumb">
@@ -98,7 +98,24 @@
                            </div>
                         </div>
                      </div>
-                  </div>                  
+                  </div> 
+                   <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item" th:if="${pageinfo.prevPage}">
+                                    <a th:href="@{'/questions/{id}?pageNo={idx}'(id=${question.id},idx=${pageinfo.startCut-1})}" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item"th:each="idx : ${#numbers.sequence(pageinfo.startCut,pageinfo.endCut)}">
+                                    <a th:href="@{'/questions/{id}?pageNo={idx}'(id=${question.id},idx=${idx})}" class="page-link" th:text="${idx}"></a>
+                                </li>  
+                                <li class="page-item" th:if="${pageinfo.nextPage}">
+                                    <a th:href="@{'/questions/{id}?pageNo={idx}'(id=${question.id},idx=${pageinfo.endCut+1})}" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>                 
                </div>
                <div class="comment-form">
                   <h4>Leave a Reply</h4>

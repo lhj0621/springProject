@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import iducs.springboot.board.domain.Answer;
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.AnswerService;
@@ -26,8 +27,8 @@ import iducs.springboot.board.utils.PageInfo;
 @Controller
 @RequestMapping("/questions")
 public class QuerstionController {
-	@Autowired
-	QuestionService questionService; // 의존성 주입(Dependency Injection) :
+	@Autowired QuestionService questionService; // 의존성 주입(Dependency Injection) :
+	@Autowired AnswerService answerService;
 	/*
 	@GetMapping("")
 	public String getAllUsers(Model model, HttpSession session, @RequestParam(defaultValue="1") Long pageNo) {
@@ -78,22 +79,29 @@ public class QuerstionController {
 	}
 
 	@GetMapping("/{id}")
-	public String getQuestionById(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
+	public String getQuestionById(@PathVariable(value = "id") Long id, Model model, HttpSession session ,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size ) {
 		if (HttpSessionUtils.isEmpty(session, "user"))
 			return "redirect:/users/login-form";
 		
 		Question question = questionService.getQuestionById(id);
+		List<Answer> answers = answerService.getAnswers(pageNo,id);
 		
 		if (HttpSessionUtils.isSameUser((User) session.getAttribute("user"), question.getWriter())) {
 			model.addAttribute("same", question.getWriter());
 		}
-		
+		PageInfo pageinfo = new PageInfo(pageNo,answerService.getAnswers().size()/size+1);
+		pageinfo.setting(2);
 		
 		/*
 		 * for(Answer answer : question.getAnswers())
 		 * System.out.println(answer.getContents());
 		 */
 		model.addAttribute("question", question);
+		model.addAttribute("answers", answers);
+		model.addAttribute("pageinfo", pageinfo);	
+		
+		
+		
 		return "/questions/info";
 	}
 

@@ -72,9 +72,9 @@ public class UserController {
 		return "/users/info";
 	}	
 	@GetMapping("{id}/delete")
-	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model) {
+	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model,HttpSession session) {
 		userService.deleteUser(formUser);
-		model.addAttribute("name", formUser.getName());
+		session.removeAttribute("user");
 		return "redirect:/";
 	}
 	
