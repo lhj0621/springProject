@@ -40,7 +40,8 @@ public class UserController {
 		List<User> users = userService.getUsersByPage(pageNo,size);
 		PageInfo pageinfo = new PageInfo(pageNo,userService.getUsers().size()/size+1);
 		pageinfo.setting(2);
-		
+		int user= userService.getUsers().size();
+		model.addAttribute("user", user);
 		model.addAttribute("users", users);
 		model.addAttribute("pageinfo", pageinfo);
 		return "/users/list";
