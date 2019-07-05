@@ -12,6 +12,5 @@ import iducs.springboot.board.entity.AnswerEntity;
 @Repository
 public interface AnswerRepository 
 	extends JpaRepository<AnswerEntity, Long> {		
-	Page<AnswerEntity> findAll(Pageable pageable); 
 	Page<AnswerEntity> findByQuestionId(Pageable pageable,long questionId); 
 }

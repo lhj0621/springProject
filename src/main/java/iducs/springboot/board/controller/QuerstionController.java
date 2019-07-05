@@ -79,7 +79,11 @@ public class QuerstionController {
 	}
 
 	@GetMapping("/{id}")
-	public String getQuestionById(@PathVariable(value = "id") Long id, Model model, HttpSession session ,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size ) {
+	public String getQuestionById(
+			@PathVariable(value = "id") Long id, Model model,
+			HttpSession session ,
+			@RequestParam(defaultValue="1") int pageNo,
+			@RequestParam(defaultValue="3") int size ) {
 		if (HttpSessionUtils.isEmpty(session, "user"))
 			return "redirect:/users/login-form";
 		
@@ -89,7 +93,7 @@ public class QuerstionController {
 		if (HttpSessionUtils.isSameUser((User) session.getAttribute("user"), question.getWriter())) {
 			model.addAttribute("same", question.getWriter());
 		}
-		PageInfo pageinfo = new PageInfo(pageNo,answerService.getAnswers().size()/size+1);
+		PageInfo pageinfo = new PageInfo(pageNo,(question.getAnswers().size()+size-1)/size);
 		pageinfo.setting(2);
 		
 		/*
@@ -100,6 +104,14 @@ public class QuerstionController {
 		model.addAttribute("answers", answers);
 		model.addAttribute("pageinfo", pageinfo);	
 		
+		System.out.println("총 댓글 수 "+question.getAnswers().size());
+		System.out.println("시작 페이지 "+pageinfo.getStartPage());
+		System.out.println("끝 페이지 "+pageinfo.getEndPage());
+		System.out.println("현제 페이지 "+pageinfo.getCurPage());
+		System.out.println("첫 번호 "+pageinfo.getStartCut());
+		System.out.println("끝 번호 "+pageinfo.getEndCut());
+		System.out.println("이전 페이지 여부 "+pageinfo.isPrevPage());
+		System.out.println("다음 페이지 여부 "+pageinfo.isNextPage());
 		
 		
 		return "/questions/info";

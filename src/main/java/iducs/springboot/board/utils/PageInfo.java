@@ -17,7 +17,7 @@ public class PageInfo {
 	
 	public void setting(long pageCount) {
 		startCut = (curPage -1) / pageCount * pageCount +1; 
-		endCut = (startCut + pageCount - 1 < endPage) ? startCut + pageCount -1 : endPage;
+		endCut = (startCut + pageCount - 1 < endPage) ? startCut + pageCount -1 : endPage;		
 		prevPage = (startCut != 1) ? true : false;
 		nextPage = (startCut +pageCount <= endPage) ? true : false;
 	}
