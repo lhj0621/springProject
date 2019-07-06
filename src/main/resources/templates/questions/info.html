@@ -35,7 +35,7 @@
                      <ul class="blog-info-link mt-3 mb-4">
                      	<li><a href="#"><i class="far fa-user"></i> <span th:text="${question.writer.userId}"></span></a></li>
                         <li><a href="#"><i class="far fa-clock"></i> <span th:text="${#temporals.format(question.createTime, 'yyyy년 MM월 dd일 HH:mm')}"></span></a></li>
-                        <li><a href="#comment-area"><i class="far fa-comments"></i> 03 Comments</a></li>
+                        <li><a href="#comment-area"><i class="far fa-comments"></i><span th:text="${question.getAnswers().size()}"></span> Comments</a></li>
                      </ul>
                      <div class="quote-wrapper">
                         <div class="quotes" th:text="${question.contents}">
@@ -46,11 +46,9 @@
                </div>
                <div class="navigation-top">
                   <div class="d-sm-flex justify-content-between text-center">
-                     <p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span> Lily and 4
-                        people like this</p>
                          <div th:if="${same}" class="nav-item">
                             <a class="nav-link" th:href="@{'/questions/{id}/update'(id=${question.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>글수정</p></a>
-                      	</div>
+                      	</div> 
                       	<div th:if="${same}" class="nav-item">
                             <a class="nav-link" th:href="@{'/questions/{id}/delete'(id=${question.id})}"><p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>삭제</p></a>
                       	</div>

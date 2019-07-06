@@ -50,7 +50,7 @@
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="far fa-user"></i> <span th:text="${question.writer.userId}"></span></a></li>
                                     <li><a href="#"><i class="far fa-clock"></i> <span th:text="${#temporals.format(question.createTime, 'YY-MM-dd ')}"></span></a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i> <span th:text="${question.getAnswers().size()}"></span> 개</a></li>
+                                    <li><a href="#"><i class="far fa-comments"></i> <span th:text="${question.getAnswers().size()}"></span>Comments</a></li>
                                 </ul>
                             </div>
                         </article>
@@ -62,7 +62,7 @@
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item"th:each="idx : ${#numbers.sequence(pageinfo.startCut,pageinfo.endCut)}">
+                                <li class="page-item"th:each="idx : ${#numbers.sequence (pageinfo.startCut,pageinfo.endCut)}">
                                     <a th:href="@{'/questions?pageNo={idx}'(idx=${idx})}" class="page-link" th:text="${idx}"></a>
                                 </li>  
                                 <li class="page-item" th:if="${pageinfo.nextPage}">
@@ -72,7 +72,7 @@
                                 </li>
                             </ul>
                         </nav>
-                        <a href="/questions/form" class="genric-btn primary circle arrow">글쓰기<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/questions/form" class="genric-btn primary circle arrow"><br><h4>글쓰기</h4><span class="lnr lnr-arrow-right"></span></a>
                     </div>
                 </div>
                 <div class="col-lg-4">
