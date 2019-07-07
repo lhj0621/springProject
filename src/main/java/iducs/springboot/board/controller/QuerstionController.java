@@ -45,7 +45,7 @@ public class QuerstionController {
 		pageinfo.setting(2);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
-		
+		model.addAttribute("qusetionsize",questionService.getQuestions().size());
 		System.out.println("총 개시글 수 "+questionService.getQuestions().size());
 		System.out.println("시작 페이지 "+pageinfo.getStartPage());
 		System.out.println("끝 페이지 "+pageinfo.getEndPage());
