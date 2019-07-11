@@ -46,14 +46,8 @@ public class UserController {
 		model.addAttribute("pageinfo", pageinfo);
 		return "/users/list";
 	}
-	/*
-	@GetMapping("")
-	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
-		System.out.println(pageNo);
-		model.addAttribute("users", userService.getUsers(pageNo));
-		return "/users/list";
-	}
-	*/	
+ 
+	
 	@GetMapping("/{id}")
 	public String getUserById(@PathVariable(value = "id") Long id, Model model) {
 		User user = userService.getUserById(id);
@@ -79,34 +73,5 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/*
-	@PatchMapping("/users/{id}")
-	//@RequestBody 사용하는 경우 
-	public ResponseEntity<User> patchUserById(@PathVariable(value = "id") Long userId, @Valid  User userDetails, Model model)
-			throws ResourceNotFoundException {
-		// orElseThrow() : 해당 값이 존재하는 경우 반환하고, 없는 경우 제공자(supplier)에 의해 제공되는 예외 반환
-		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
-		user.setName(userDetails.getName());
-		//user.setCompany(userDetails.getCompany());
-		User userUpdate = userRepo.save(user);
-		return ResponseEntity.ok(userUpdate);
-		// 
-		//return ResponseEntity.ok().body(user);
-	}
-
-	@GetMapping("/users/n")
-	public String getEmployeeByName(@Param(value = "name") String name, Model model)
-			throws ResourceNotFoundException {
-		List<User> users = userRepo.findByNameOrderByIdAsc(name);
-		model.addAttribute("users", users);
-		return "user-list";
-	}
-	@GetMapping("/users/c")
-	public String getUserByCompany(@Param(value = "company") String company, Model model)
-			throws ResourceNotFoundException {
-		List<User> users = userRepo.findByCompany(company);
-		model.addAttribute("users", users);
-		return "user-list";
-	}
-	*/
+	
 }
