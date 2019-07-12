@@ -116,7 +116,17 @@ public class QuerstionController {
 		
 		return "/questions/info";
 	}
-
+	@RequestMapping("/find")
+	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size, Model model) {
+		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo);
+		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
+		pageinfo.setting(2);
+		model.addAttribute("questions", questions);
+		model.addAttribute("pageinfo", pageinfo);	
+		model.addAttribute("qusetionsize",questionService.getQuestions().size());
+		
+		return "redirect:/questions";
+	}
 	
 	@GetMapping("/{id}/form")
 	public String getUpdateForm(@PathVariable(value = "id") Long id, Model model) {
