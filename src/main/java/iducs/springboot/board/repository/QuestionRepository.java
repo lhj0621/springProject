@@ -17,5 +17,5 @@ public interface QuestionRepository
 	List<QuestionEntity> findAll(Sort sort); 
 	Page<QuestionEntity> findAll(Pageable pageable); 
 	
-	List<QuestionEntity> findBytitle(String title);
+	List<QuestionEntity> findBytitleLike(String title);
 }
