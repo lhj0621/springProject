@@ -26,7 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public List<Question> getQuestionsByTitle(String title,int pageNo) {
 		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 3, new Sort(Sort.Direction.DESC, "id"));
-		List<QuestionEntity> entities = repository.findBytitleLike("%2%");
+		List<QuestionEntity> entities = repository.findBytitleLike("%"+title+"%");
 		System.out.println("entities크기" + entities);
 		List<Question> questions = new ArrayList<Question>();
 		for (QuestionEntity entity : entities) {

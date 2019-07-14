@@ -119,6 +119,7 @@ public class QuerstionController {
 	@PostMapping("/find")
 	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size, Model model) {
 		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo);
+		System.out.println(questions.size());
 		System.out.println("title: "+title);
 		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
 		pageinfo.setting(2);
