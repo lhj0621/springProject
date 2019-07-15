@@ -121,7 +121,7 @@ public class QuerstionController {
 		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo);
 		System.out.println(questions.size());
 		System.out.println("title: "+title);
-		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
+		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title, pageNo).size()/size+1);
 		pageinfo.setting(2);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
