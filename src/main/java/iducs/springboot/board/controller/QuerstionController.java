@@ -117,15 +117,15 @@ public class QuerstionController {
 		return "/questions/info";
 	}
 	@PostMapping("/find")
-	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size, Model model) {
-		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo);
+	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size, Model model) {
+		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo,size);
 		System.out.println(questions.size());
 		System.out.println("title: "+title);
-		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title, pageNo).size()/size+1);
+		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title, pageNo,size).size()/size+1);
 		pageinfo.setting(2);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
-		model.addAttribute("qusetionsize",questionService.getQuestions().size());
+		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title, pageNo,size).size());
 		
 		return "questions/list";
 	}
