@@ -56,6 +56,7 @@ public class QuerstionController {
 		System.out.println("다음 페이지 여부 "+pageinfo.isNextPage());
 		
 		return "/questions/list";
+		// 페이지가 1 0 이렇게 뜨는 경우 있음.
 	}
 	
 	/*
@@ -128,6 +129,10 @@ public class QuerstionController {
 		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title, pageNo,size).size());
 		
 		return "questions/list";
+		
+		// 페이징 불가능
+		// findlist 제작?
+		// title을 입력하지 않을때 쓰레기값 .
 	}
 	
 	@GetMapping("/{id}/form")
