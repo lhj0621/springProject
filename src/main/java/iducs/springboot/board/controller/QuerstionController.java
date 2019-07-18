@@ -117,7 +117,7 @@ public class QuerstionController {
 		
 		return "/questions/info";
 	}
-	@PostMapping("/find")
+	@GetMapping("/find")
 	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size, Model model) {
 		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo,size);
 		System.out.println(questions.size());
@@ -127,8 +127,9 @@ public class QuerstionController {
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
 		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title, pageNo,size).size());
+		model.addAttribute("title",title);
 		
-		return "questions/list";
+		return "questions/findlist";
 		
 		// 페이징 불가능
 		// findlist 제작?
