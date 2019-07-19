@@ -59,15 +59,15 @@
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
                                 <li class="page-item" th:if="${pageinfo.prevPage}">
-                                    <a th:href="@{'/questions/find?pageNo={idx}'(idx=${pageinfo.startCut-1})}" class="page-link" aria-label="Previous">
+                                    <a th:href="@{'/questions/find?pageNo={idx}&title={title}'(idx=${pageinfo.startCut-1},,title=${title})}" class="page-link" aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
                                 <li class="page-item"th:each="idx : ${#numbers.sequence (pageinfo.startCut,pageinfo.endCut)}">
-                                    <a th:href="@{'/questions/find?pageNo={idx}&tite={title}'(idx=${idx},title=${title})}" class="page-link" th:text="${idx}"></a>
+                                    <a th:href="@{'/questions/find?pageNo={idx}&title={title}'(idx=${idx},title=${title})}" class="page-link" th:text="${idx}"></a>
                                 </li>  
                                 <li class="page-item" th:if="${pageinfo.nextPage}">
-                                    <a th:href="@{'/questions/find?pageNo={idx}'(idx=${pageinfo.endCut+1})}" class="page-link" aria-label="Next">
+                                    <a th:href="@{'/questions/find?pageNo={idx}&title={title}'(idx=${pageinfo.endCut+1},title=${title})}" class="page-link" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
                                 </li>

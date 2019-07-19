@@ -122,11 +122,11 @@ public class QuerstionController {
 		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo,size);
 		System.out.println(questions.size());
 		System.out.println("title: "+title);
-		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title, pageNo,size).size()/size+1);
+		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title).size()/size);
 		pageinfo.setting(2);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
-		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title, pageNo,size).size());
+		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title).size());
 		model.addAttribute("title",title);
 		
 		return "questions/findlist";

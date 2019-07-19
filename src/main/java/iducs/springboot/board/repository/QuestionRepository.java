@@ -18,4 +18,5 @@ public interface QuestionRepository
 	Page<QuestionEntity> findAll(Pageable pageable); 
 	
 	List<QuestionEntity> findBytitleLike(Pageable pageable,String title);
+	List<QuestionEntity> findBytitleLike(String title);
 }
