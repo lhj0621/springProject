@@ -73,5 +73,10 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("find")
+	public String UserFindByName(@PathVariable(value = "id") Long id, @Valid User formUser, Model model,HttpSession session) {
+		
+		return "redirect:/";
+	}
 	
 }
