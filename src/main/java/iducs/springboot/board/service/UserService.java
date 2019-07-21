@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
 
 public interface UserService {
@@ -17,6 +18,9 @@ public interface UserService {
 	List<User> getUsersByName(String name); // name으로 조회
 	List<User> getUsersByCompany(String company); // company으로 조회
 	List<User> getUsersByPage(int index, int size); // 페이지로 조회
+	
+	List<User> getQuestionsByUserId(String userId,int pageNo,int size);
+	List<User> getQuestionsByUserId(String userId);
 	
 	void saveUser(User user); // 생성
 	void updateUser(User user); // 수정

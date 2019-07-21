@@ -15,17 +15,17 @@ import iducs.springboot.board.entity.UserEntity;
 import iducs.springboot.board.exception.ResourceNotFoundException;
 import iducs.springboot.board.repository.UserRepository;
 
-@Service//("userService")
+@Service // ("userService")
 public class UserServiceImpl implements UserService {
 
-	@Autowired UserRepository repository;
+	@Autowired
+	UserRepository repository;
 
 	@Override
 	public User getUserById(long id) {
 		UserEntity userEntity = null;
 		try {
-			userEntity = repository.findById(id).orElseThrow(() 
-					-> new ResourceNotFoundException("not found " + id ));
+			userEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("not found " + id));
 		} catch (ResourceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByUserId(String userId) {
 		UserEntity userEntity = repository.findByUserId(userId);
-		if(userEntity == null)
+		if (userEntity == null)
 			return null;
 		return userEntity.buildDomain();
 	}
@@ -45,34 +45,35 @@ public class UserServiceImpl implements UserService {
 		List<User> users = new ArrayList<User>();
 		Page<UserEntity> entities = repository.findAll(pageRequest);
 		System.out.println(entities);
-		for(UserEntity entity : entities) {
+		for (UserEntity entity : entities) {
 			User user = entity.buildDomain();
 			users.add(user);
 		}
 		return users;
 	}
-	
+
 	@Override
 	public List<User> getUsers(Long pageNo) {
 		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 3, new Sort(Sort.Direction.DESC, "id"));
 		Page<UserEntity> entities = repository.findAll(pageRequest);
 		List<User> users = new ArrayList<User>();
-		for(UserEntity entity : entities) {
-			User user = entity.buildDomain();
-			users.add(user);
-		}
-		return users;
-	}	
-	
-	public List<User> getUsers() {
-		List<User> users = new ArrayList<User>();
-		List<UserEntity> entities = repository.findAll();
-		for(UserEntity entity : entities) {
+		for (UserEntity entity : entities) {
 			User user = entity.buildDomain();
 			users.add(user);
 		}
 		return users;
 	}
+
+	public List<User> getUsers() {
+		List<User> users = new ArrayList<User>();
+		List<UserEntity> entities = repository.findAll();
+		for (UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
+	}
+
 	@Override
 	public List<User> getUsersByName(String name) {
 		// TODO Auto-generated method stub
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		PageRequest pageRequest = PageRequest.of((int) (index - 1), size, new Sort(Sort.Direction.DESC, "id"));
 		Page<UserEntity> entities = repository.findAll(pageRequest);
 		List<User> users = new ArrayList<User>();
-		for(UserEntity entity : entities) {
+		for (UserEntity entity : entities) {
 			User user = entity.buildDomain();
 			users.add(user);
 		}
@@ -104,6 +105,7 @@ public class UserServiceImpl implements UserService {
 		entity.buildEntity(user);
 		repository.save(entity);
 	}
+
 	@Override
 	public void updateUser(User user) {
 		UserEntity entity = new UserEntity();
@@ -116,5 +118,28 @@ public class UserServiceImpl implements UserService {
 		UserEntity entity = new UserEntity();
 		entity.buildEntity(user);
 		repository.delete(entity);
+	}
+
+	@Override
+	public List<User> getQuestionsByUserId(String userId, int pageNo, int size) {
+		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), size, new Sort(Sort.Direction.DESC, "id"));
+		List<UserEntity> entities = repository.findByuserIdLike(pageRequest,"%" + userId + "%");
+		List<User> users = new ArrayList<User>();
+		for (UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
+	}
+
+	@Override
+	public List<User> getQuestionsByUserId(String userId) {
+		List<UserEntity> entities = repository.findByuserIdLike("%" + userId + "%");
+		List<User> users = new ArrayList<User>();
+		for (UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
 	}
 }

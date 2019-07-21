@@ -38,7 +38,6 @@ public class QuestionServiceImpl implements QuestionService {
 	public List<Question> getQuestionsByTitle(String title,int pageNo,int size) {
 		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), size, new Sort(Sort.Direction.DESC, "id"));
 		List<QuestionEntity> entities = repository.findBytitleLike(pageRequest,"%"+title+"%");
-		System.out.println("entities크기" + entities);
 		List<Question> questions = new ArrayList<Question>();
 		for (QuestionEntity entity : entities) {
 			Question question = entity.buildDomain();

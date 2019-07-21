@@ -73,8 +73,16 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("find")
-	public String UserFindByName(@PathVariable(value = "id") Long id, @Valid User formUser, Model model,HttpSession session) {
+	@GetMapping("/find")
+	public String UserFindByName(String userId,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size, Model model) {
+		List<User> users = userService.getQuestionsByUserId(userId, pageNo, size);
+		PageInfo pageinfo = new PageInfo(pageNo,userService.getQuestionsByUserId(userId).size()/size);
+		pageinfo.setting(2);
+		
+		model.addAttribute("users",users);
+		model.addAttribute("pageinfo",pageinfo);
+		model.addAttribute("usersize",userService.getQuestionsByUserId(userId).size());
+		
 		
 		return "redirect:/";
 	}
