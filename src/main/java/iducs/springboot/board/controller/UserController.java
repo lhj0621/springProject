@@ -82,9 +82,9 @@ public class UserController {
 		model.addAttribute("users",users);
 		model.addAttribute("pageinfo",pageinfo);
 		model.addAttribute("usersize",userService.getQuestionsByUserId(userId).size());
+		model.addAttribute("userId", userId);
 		
-		
-		return "redirect:/";
+		return "/users/findlist";
 	}
 	
 }
