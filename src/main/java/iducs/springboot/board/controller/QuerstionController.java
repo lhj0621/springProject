@@ -38,11 +38,11 @@ public class QuerstionController {
 	}
 	*/
 	@GetMapping("")
-	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size ) {
+	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size ) {
 
 		List<Question> questions = questionService.getQuestionsByPage(pageNo,size);
 		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
-		pageinfo.setting(2);
+		pageinfo.setting(3);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
 		model.addAttribute("qusetionsize",questionService.getQuestions().size());
@@ -123,7 +123,7 @@ public class QuerstionController {
 		System.out.println(questions.size());
 		System.out.println("title: "+title);
 		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title).size()/size);
-		pageinfo.setting(2);
+		pageinfo.setting(3);
 		model.addAttribute("questions", questions);
 		model.addAttribute("pageinfo", pageinfo);	
 		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title).size());
