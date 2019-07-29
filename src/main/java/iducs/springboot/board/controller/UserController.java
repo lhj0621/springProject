@@ -36,7 +36,7 @@ public class UserController {
 		return "redirect:/";
 	}	
 	@GetMapping("")
-	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") int pageNo,@RequestParam(defaultValue="8") int size) { //@PathVariable(value = "pageNo") Long pageNo) {
+	public String getUsers(Model model, HttpSession session, @RequestParam(name = "pageNo",defaultValue = "1") int pageNo,@RequestParam(defaultValue="6") int size) { //@PathVariable(value = "pageNo") Long pageNo) {
 		List<User> users = userService.getUsersByPage(pageNo,size);
 		PageInfo pageinfo = new PageInfo(pageNo,userService.getUsers().size()/size+1);
 		pageinfo.setting(2);

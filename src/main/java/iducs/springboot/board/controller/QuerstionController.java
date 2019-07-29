@@ -38,7 +38,7 @@ public class QuerstionController {
 	}
 	*/
 	@GetMapping("")
-	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size ) {
+	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size ) {
 
 		List<Question> questions = questionService.getQuestionsByPage(pageNo,size);
 		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
@@ -118,7 +118,7 @@ public class QuerstionController {
 		return "/questions/info";
 	}
 	@GetMapping("/find")
-	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="5") int size, Model model) {
+	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size, Model model) {
 		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo,size);
 		System.out.println(questions.size());
 		System.out.println("title: "+title);
