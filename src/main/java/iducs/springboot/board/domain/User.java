@@ -6,14 +6,16 @@ public class User {
 	private String userPw;	
 	private String name;
 	private String company;
+	private String image;
 	
 	public User()  {}
-	public User(String userId, String userPw, String name, String company) {
+	public User(String userId, String userPw, String name, String company,String image) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
 		this.name = name;
 		this.company = company;
+		this.image = image;
 	}
 	
 	public long getId() {
@@ -68,6 +70,12 @@ public class User {
 		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 }

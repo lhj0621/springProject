@@ -28,7 +28,7 @@ public class UserEntity {
 	private String name;
 
 	private String company;
-
+	private String image;
 	public Long getId() {
 		return id;
 	}
@@ -68,7 +68,15 @@ public class UserEntity {
 	public void setCompany(String company) {
 		this.company = company;
 	}
+	
+	public String getImage() {
+		return image;
+	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	public User buildDomain() {
 		User user = new User();
 		user.setId(id);
@@ -86,4 +94,6 @@ public class UserEntity {
 		name = user.getName();
 		company = user.getCompany();
 	}
+
+	
 }
