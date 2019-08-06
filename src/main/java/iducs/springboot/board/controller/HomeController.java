@@ -26,7 +26,7 @@ public class HomeController {
 	@GetMapping("/initdb") 
 	public String initialize() {
 		for(int i = 1;i <= 10; i++)
-			userService.saveUser(new User("a" + i, "p" + i, "name" + i, "contact" + i));	
+			userService.saveUser(new User("a" + i, "p" + i, "name" + i, "contact" + i,"image" + i));	
 		
 		return "index";
 	}
