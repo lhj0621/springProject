@@ -84,6 +84,7 @@ public class UserEntity {
 		user.setUserPw(userPw);
 		user.setName(name);
 		user.setCompany(company);
+		user.setImage(image);
 		return user;
 	}
 
@@ -93,6 +94,7 @@ public class UserEntity {
 		userPw = user.getUserPw();
 		name = user.getName();
 		company = user.getCompany();
+		image = user.getImage();
 	}
 
 	
