@@ -1,11 +1,13 @@
 package iducs.springboot.board.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import iducs.springboot.board.domain.File;
+
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.UserService;
@@ -42,6 +44,14 @@ public class UserController {
         File destinationFile; 
         String destinationFileName;
         String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF";
+        
+        do { 
+            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension; 
+            destinationFile = new File(fileUrl + destinationFileName); 
+        } while (destinationFile.exists()); 
+        
+        destinationFile.getParentFile().mkdirs(); 
+
 
 
 		model.addAttribute("user", formUser);
