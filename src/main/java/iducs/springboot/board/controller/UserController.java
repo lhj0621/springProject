@@ -37,7 +37,7 @@ public class UserController {
 	// @Component, @Controller, @Repository, @Service 표시된 클래스형 빈 객체를 스프링이 스캔하여 등록하고, @Autowired 등 요청시 주입 	
 	
 	@PostMapping("")
-	public String createUser(@Valid User formUser, Model model, @RequestPart MultipartFile files) {
+	public String createUser(@Valid User formUser, Model model, @RequestPart MultipartFile files)throws Exception {
 		userService.saveUser(formUser); 
         String sourceFileName = files.getOriginalFilename(); 
         String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
@@ -51,7 +51,7 @@ public class UserController {
         } while (destinationFile.exists()); 
         
         destinationFile.getParentFile().mkdirs(); 
-
+        files.transferTo(destinationFile); 
 
 
 		model.addAttribute("user", formUser);
