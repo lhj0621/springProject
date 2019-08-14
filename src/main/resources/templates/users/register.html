@@ -35,7 +35,7 @@
 						<!-- 
 						<form th:action="@{'/users'}" th:method="post">
 						 -->
-						<form action="/users" method="post" id="register_form">
+						<form action="/users" method="post" id="register_form" enctype="multipart/form-data">
 							<div class="mt-10">
 								<input type="text" name="userId" placeholder="사용자 아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '사용자 아이디'" required="" class="single-input">
 							</div>

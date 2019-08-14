@@ -36,7 +36,7 @@
 						<form th:action="@{'/users'}" th:method="post">
 						 -->
 						 <img src="/img/about.png" width="500" height="300" style="margin-left: auto; margin-right: auto; display: block;">
-						 <form th:action="@{'/users/{id}'(id=${user.id})}" th:method="put" th:object="${user}">
+						 <form th:action="@{'/users/{id}'(id=${user.id})}" th:method="put" th:object="${user}" enctype="multipart/form-data">
 							<div class="mt-10">
 								<input type="text" th:field="*{userId}" name="userId" placeholder="사용자 아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '사용자 아이디'" required="" class="single-input" ReadOnly>
 							</div>
