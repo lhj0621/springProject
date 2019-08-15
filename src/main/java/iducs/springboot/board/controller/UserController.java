@@ -39,6 +39,7 @@ public class UserController {
 	@PostMapping("")
 	public String createUser(@Valid User formUser, Model model, @RequestPart MultipartFile files)throws Exception {
 		userService.saveUser(formUser); 
+		
         String sourceFileName = files.getOriginalFilename(); 
         String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
         File destinationFile; 
@@ -52,7 +53,6 @@ public class UserController {
         
         destinationFile.getParentFile().mkdirs(); 
         files.transferTo(destinationFile); 
-
 
 		model.addAttribute("user", formUser);
 		return "redirect:/";
