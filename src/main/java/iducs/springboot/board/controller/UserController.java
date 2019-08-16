@@ -38,13 +38,14 @@ public class UserController {
 	
 	@PostMapping("")
 	public String createUser(@Valid User formUser, Model model, @RequestPart MultipartFile files)throws Exception {
-		userService.saveUser(formUser); 
-		
-        String sourceFileName = files.getOriginalFilename(); 
-        String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
+
+        String sourceFileName = files.getOriginalFilename();  //파일명
+
+        String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); //확장자
+        System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
-        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF";
+        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles";
         
         do { 
             destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension; 
@@ -53,7 +54,8 @@ public class UserController {
         
         destinationFile.getParentFile().mkdirs(); 
         files.transferTo(destinationFile); 
-
+        formUser.setImage(destinationFileName);
+		userService.saveUser(formUser); 
 		model.addAttribute("user", formUser);
 		return "redirect:/";
 	}	
@@ -78,11 +80,12 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session) {
+	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session)throws Exception {
 		User user = userService.getUserById(id);
 		user.setUserPw(formUser.getUserPw());
 		user.setName(formUser.getName());
 		user.setCompany(formUser.getCompany());
+		user.setImage(formUser.getImage());
 		userService.updateUser(user);		
 		model.addAttribute("user", user);
 		session.setAttribute("user", user);
