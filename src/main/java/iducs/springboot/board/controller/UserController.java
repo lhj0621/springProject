@@ -45,7 +45,7 @@ public class UserController {
         System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
-        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
         
         do { 
             destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension; 
