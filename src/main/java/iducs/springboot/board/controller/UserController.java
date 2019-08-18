@@ -45,16 +45,16 @@ public class UserController {
         System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
-        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
+        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"; //파일 저장 위치
         
         do { 
-            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension; 
+            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension;  //파일 명 변경
             destinationFile = new File(fileUrl + destinationFileName); 
         } while (destinationFile.exists()); 
         
-        destinationFile.getParentFile().mkdirs(); 
-        files.transferTo(destinationFile); 
-        formUser.setImage(destinationFileName);
+        destinationFile.getParentFile().mkdirs();  
+        files.transferTo(destinationFile); // 저장
+        formUser.setImage(destinationFileName); 
 		userService.saveUser(formUser); 
 		model.addAttribute("user", formUser);
 		return "redirect:/";
