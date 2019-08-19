@@ -45,7 +45,7 @@ public class UserController {
         System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
-        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"; //파일 저장 위치
+        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\resources\\static\\uploadFiles\\"; //파일 저장 위치
         
         do { 
             destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension;  //파일 명 변경
