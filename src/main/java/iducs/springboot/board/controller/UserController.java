@@ -40,7 +40,6 @@ public class UserController {
 	public String createUser(@Valid User formUser, Model model, @RequestPart MultipartFile files)throws Exception {
 
         String sourceFileName = files.getOriginalFilename();  //파일명
-
         String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); //확장자
         System.out.println(sourceFileNameExtension);
         File destinationFile; 
@@ -80,12 +79,28 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session)throws Exception {
+	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session, @RequestPart MultipartFile files)throws Exception {
+		String sourceFileName = files.getOriginalFilename();  //파일명
+		System.out.println(sourceFileName);
+        String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); //확장자
+        System.out.println(sourceFileNameExtension);
+        File destinationFile; 
+        String destinationFileName;
+        String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\resources\\static\\uploadFiles\\"; //파일 저장 위치
+        
+        do { 
+            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension;  //파일 명 변경
+            destinationFile = new File(fileUrl + destinationFileName); 
+        } while (destinationFile.exists()); 
+        
+        destinationFile.getParentFile().mkdirs();  
+        files.transferTo(destinationFile); // 저장
+        
 		User user = userService.getUserById(id);
 		user.setUserPw(formUser.getUserPw());
 		user.setName(formUser.getName());
 		user.setCompany(formUser.getCompany());
-		user.setImage(formUser.getImage());
+		user.setImage(destinationFileName);
 		userService.updateUser(user);		
 		model.addAttribute("user", user);
 		session.setAttribute("user", user);
