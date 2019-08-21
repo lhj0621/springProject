@@ -78,7 +78,7 @@ public class UserController {
 		return "/users/info";
 	}
 	
-	@PutMapping("/{id}")
+	@PostMapping("/{id}")
 	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session, @RequestPart MultipartFile files)throws Exception {
 		String sourceFileName = files.getOriginalFilename();  //파일명
 		System.out.println(sourceFileName);
