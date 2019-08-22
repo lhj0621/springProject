@@ -41,7 +41,6 @@ public class UserController {
 
         String sourceFileName = files.getOriginalFilename();  //파일명
         String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); //확장자
-        System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
         String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\resources\\static\\uploadFiles\\"; //파일 저장 위치
@@ -52,8 +51,8 @@ public class UserController {
         } while (destinationFile.exists()); 
         
         destinationFile.getParentFile().mkdirs();  
-        files.transferTo(destinationFile); // 저장
-        formUser.setImage(destinationFileName); 
+        files.transferTo(destinationFile); // 파일 저장
+        formUser.setImage(destinationFileName); //파일 명 저장
 		userService.saveUser(formUser); 
 		model.addAttribute("user", formUser);
 		return "redirect:/";
@@ -81,9 +80,7 @@ public class UserController {
 	@PostMapping("/{id}")
 	public String updateUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session, @RequestPart MultipartFile files)throws Exception {
 		String sourceFileName = files.getOriginalFilename();  //파일명
-		System.out.println(sourceFileName);
         String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); //확장자
-        System.out.println(sourceFileNameExtension);
         File destinationFile; 
         String destinationFileName;
         String fileUrl = "D:\\lhjspring\\spring\\springProject\\src\\main\\resources\\static\\uploadFiles\\"; //파일 저장 위치
