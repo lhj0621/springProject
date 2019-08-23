@@ -27,46 +27,37 @@ import iducs.springboot.board.utils.PageInfo;
 @Controller
 @RequestMapping("/questions")
 public class QuerstionController {
-	@Autowired QuestionService questionService; // 의존성 주입(Dependency Injection) :
-	@Autowired AnswerService answerService;
-	/*
-	@GetMapping("")
-	public String getAllUsers(Model model, HttpSession session, @RequestParam(defaultValue="1") Long pageNo) {
-		List<Question> questions = questionService.getQuestions(pageNo);
-		model.addAttribute("questions", questions);
-		return "/questions/list";
-	}
-	*/
-	@GetMapping("")
-	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size ) {
+	@Autowired
+	QuestionService questionService; // 의존성 주입(Dependency Injection) :
+	@Autowired
+	AnswerService answerService;
 
-		List<Question> questions = questionService.getQuestionsByPage(pageNo,size);
-		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestions().size()/size+1);
+	/*
+	 * @GetMapping("") public String getAllUsers(Model model, HttpSession
+	 * session, @RequestParam(defaultValue="1") Long pageNo) { List<Question>
+	 * questions = questionService.getQuestions(pageNo);
+	 * model.addAttribute("questions", questions); return "/questions/list"; }
+	 */
+	@GetMapping("")
+	public String getpage(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pageNo,
+			@RequestParam(defaultValue = "3") int size) {
+
+		List<Question> questions = questionService.getQuestionsByPage(pageNo, size);
+		PageInfo pageinfo = new PageInfo(pageNo, questionService.getQuestions().size() / size + 1);
 		pageinfo.setting(3);
 		model.addAttribute("questions", questions);
-		model.addAttribute("pageinfo", pageinfo);	
-		model.addAttribute("qusetionsize",questionService.getQuestions().size());
-		System.out.println("총 개시글 수 "+questionService.getQuestions().size());
-		System.out.println("시작 페이지 "+pageinfo.getStartPage());
-		System.out.println("끝 페이지 "+pageinfo.getEndPage());
-		System.out.println("현제 페이지 "+pageinfo.getCurPage());
-		System.out.println("첫 번호 "+pageinfo.getStartCut());
-		System.out.println("끝 번호 "+pageinfo.getEndCut());
-		System.out.println("이전 페이지 여부 "+pageinfo.isPrevPage());
-		System.out.println("다음 페이지 여부 "+pageinfo.isNextPage());
-		
+		model.addAttribute("pageinfo", pageinfo);
+		model.addAttribute("qusetionsize", questionService.getQuestions().size());
+
 		return "/questions/list";
 		// 페이지가 1 0 이렇게 뜨는 경우 있음.
 	}
-	
+
 	/*
-	@GetMapping("")
-	public String getAllUser(Model model, HttpSession session) {
-		List<Question> questions = questionService.getQuestions();
-		model.addAttribute("questions", questions);
-		return "/questions/list";
-	}
-	*/
+	 * @GetMapping("") public String getAllUser(Model model, HttpSession session) {
+	 * List<Question> questions = questionService.getQuestions();
+	 * model.addAttribute("questions", questions); return "/questions/list"; }
+	 */
 	@PostMapping("")
 	// public String createUser(Question question, Model model, HttpSession session)
 	// {
@@ -80,72 +71,67 @@ public class QuerstionController {
 	}
 
 	@GetMapping("/{id}")
-	public String getQuestionById(
-			@PathVariable(value = "id") Long id, Model model,
-			HttpSession session ,
-			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="3") int size ) {
+	public String getQuestionById(@PathVariable(value = "id") Long id, Model model, HttpSession session,
+			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "3") int size) {
 		if (HttpSessionUtils.isEmpty(session, "user"))
 			return "redirect:/users/login-form";
-		
+
 		Question question = questionService.getQuestionById(id);
-		List<Answer> answers = answerService.getAnswers(pageNo,id);
-		
+		List<Answer> answers = answerService.getAnswers(pageNo, id);
+
 		if (HttpSessionUtils.isSameUser((User) session.getAttribute("user"), question.getWriter())) {
 			model.addAttribute("same", question.getWriter());
 		}
-		PageInfo pageinfo = new PageInfo(pageNo,(question.getAnswers().size()+size-1)/size);
+		PageInfo pageinfo = new PageInfo(pageNo, (question.getAnswers().size() + size - 1) / size);
 		pageinfo.setting(2);
-		
+
 		/*
 		 * for(Answer answer : question.getAnswers())
 		 * System.out.println(answer.getContents());
 		 */
 		model.addAttribute("question", question);
 		model.addAttribute("answers", answers);
-		model.addAttribute("pageinfo", pageinfo);	
-		
-		System.out.println("총 댓글 수 "+question.getAnswers().size());
-		System.out.println("시작 페이지 "+pageinfo.getStartPage());
-		System.out.println("끝 페이지 "+pageinfo.getEndPage());
-		System.out.println("현제 페이지 "+pageinfo.getCurPage());
-		System.out.println("첫 번호 "+pageinfo.getStartCut());
-		System.out.println("끝 번호 "+pageinfo.getEndCut());
-		System.out.println("이전 페이지 여부 "+pageinfo.isPrevPage());
-		System.out.println("다음 페이지 여부 "+pageinfo.isNextPage());
-		
-		
+		model.addAttribute("pageinfo", pageinfo);
+		/*
+		 * System.out.println("총 댓글 수 "+question.getAnswers().size());
+		 * System.out.println("시작 페이지 "+pageinfo.getStartPage());
+		 * System.out.println("끝 페이지 "+pageinfo.getEndPage());
+		 * System.out.println("현제 페이지 "+pageinfo.getCurPage());
+		 * System.out.println("첫 번호 "+pageinfo.getStartCut());
+		 * System.out.println("끝 번호 "+pageinfo.getEndCut());
+		 * System.out.println("이전 페이지 여부 "+pageinfo.isPrevPage());
+		 * System.out.println("다음 페이지 여부 "+pageinfo.isNextPage());
+		 */
+
 		return "/questions/info";
 	}
+
 	@GetMapping("/find")
-	public String QuestionFindByTitle(String title,@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="3") int size, Model model) {
-		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo,size);
+	public String QuestionFindByTitle(String title, @RequestParam(defaultValue = "1") int pageNo,
+			@RequestParam(defaultValue = "3") int size, Model model) {
+		List<Question> questions = questionService.getQuestionsByTitle(title, pageNo, size);
 		System.out.println(questions.size());
-		System.out.println("title: "+title);
-		PageInfo pageinfo = new PageInfo(pageNo,questionService.getQuestionsByTitle(title).size()/size);
+		System.out.println("title: " + title);
+		PageInfo pageinfo = new PageInfo(pageNo, questionService.getQuestionsByTitle(title).size() / size);
 		pageinfo.setting(3);
 		model.addAttribute("questions", questions);
-		model.addAttribute("pageinfo", pageinfo);	
-		model.addAttribute("qusetionsize",questionService.getQuestionsByTitle(title).size());
-		model.addAttribute("title",title);
-		
+		model.addAttribute("pageinfo", pageinfo);
+		model.addAttribute("qusetionsize", questionService.getQuestionsByTitle(title).size());
+		model.addAttribute("title", title);
+
 		return "questions/findlist";
-		
-		// 페이징 불가능
-		// findlist 제작?
-		// title을 입력하지 않을때 쓰레기값 .
 	}
-	
+
 	@GetMapping("/{id}/form")
 	public String getUpdateForm(@PathVariable(value = "id") Long id, Model model) {
 		Question question = questionService.getQuestionById(id);
 		model.addAttribute("question", question);
 		return "/questions/info";
 	}
-	
+
 	@GetMapping("/{id}/update")
 	public String questionupdateForm(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
-		if(HttpSessionUtils.isEmpty(session, "user")){
+		if (HttpSessionUtils.isEmpty(session, "user")) {
 			return "redirect:/users/login-form";
 		}
 		User writer = (User) session.getAttribute("user");
@@ -153,10 +139,11 @@ public class QuerstionController {
 		Question question = questionService.getQuestionById(id);
 		model.addAttribute("question", question);
 		return "/questions/update";
-	}	
-	
+	}
+
 	@PostMapping("/{id}/update2")
-	public String updateQuestionById(@PathVariable(value = "id") Long id,@Valid Question formquestion , String title, String contents, Model model) {
+	public String updateQuestionById(@PathVariable(value = "id") Long id, @Valid Question formquestion, String title,
+			String contents, Model model) {
 		Question question = questionService.getQuestionById(id);
 		question.setTitle(title);
 		question.setContents(contents);
