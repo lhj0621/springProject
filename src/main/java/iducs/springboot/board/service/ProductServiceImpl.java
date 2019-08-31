@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import iducs.springboot.board.domain.Product;
@@ -39,5 +41,18 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return products;
 	}
+
+	@Override
+	public List<Product> getProduct(PageRequest pageRequest) {
+		List<Product> products = new ArrayList<Product>();
+		Page<ProductEntity> entities = repository.findAll(pageRequest);
+		for (ProductEntity entity : entities) {
+			Product product = entity.buildDomain();
+			products.add(product);
+		}
+		return products;
+	}
+	
+	
 
 }
