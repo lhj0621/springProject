@@ -20,6 +20,7 @@ import iducs.springboot.board.domain.Answer;
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.AnswerService;
+import iducs.springboot.board.service.ProductService;
 import iducs.springboot.board.service.QuestionService;
 import iducs.springboot.board.utils.HttpSessionUtils;
 import iducs.springboot.board.utils.PageInfo;
@@ -27,6 +28,8 @@ import iducs.springboot.board.utils.PageInfo;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+	@Autowired ProductService productService;
+	
 	@GetMapping("")
 	public String getpage(Model model) {
 
