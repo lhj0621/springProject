@@ -10,4 +10,6 @@ public interface ProductService {
 	Product getProductByName(String name);
 	List<Product> getProduct();
 	List<Product> getProduct(PageRequest pageRequest);
+	
+	void saveProduct(Product product);
 }

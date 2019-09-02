@@ -52,6 +52,14 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return products;
 	}
+
+	@Override
+	public void saveProduct(Product product) {
+		ProductEntity entity = new ProductEntity();
+		entity.buildEntity(product);
+		repository.save(entity);
+		
+	}
 	
 	
 
