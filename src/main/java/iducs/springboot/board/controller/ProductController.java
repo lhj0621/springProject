@@ -1,5 +1,8 @@
 package iducs.springboot.board.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,9 @@ public class ProductController {
 	@Autowired ProductService productService;
 	
 	@GetMapping("")
-	public String getpage(Model model) {
-
-
+	public String getRroduct(Model model,HttpSession session) {
+		List<Product> products = productService.getProduct();
+		model.addAttribute("product",products);
 		return "/product/list";
 	}
 	@PostMapping("")
