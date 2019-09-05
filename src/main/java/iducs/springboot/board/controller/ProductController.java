@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import iducs.springboot.board.domain.Product;
+import iducs.springboot.board.domain.User;
 import iducs.springboot.board.service.ProductService;
 
 
@@ -41,5 +42,9 @@ public class ProductController {
 		Product product = productService.getProductByName(name);
 		model.addAttribute("product", product);
 		return "/users/info";
+	}
+	@GetMapping("{id}/delete")
+	public String deleteProducId(@PathVariable(value = "id") Long id, @Valid Product formProduct, Model model,HttpSession session) {
+		return "redirect:/";
 	}
 }
