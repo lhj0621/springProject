@@ -45,6 +45,7 @@ public class ProductController {
 	}
 	@GetMapping("{id}/delete")
 	public String deleteProducId(@PathVariable(value = "id") Long id, @Valid Product formProduct, Model model,HttpSession session) {
+	
 		return "redirect:/";
 	}
 }

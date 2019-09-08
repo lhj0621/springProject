@@ -30,7 +30,19 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return productEntity.buildDomain();
 	}
-
+	
+	@Override
+	public Product getProductById(long id) {
+		ProductEntity productEntity = null;
+		try {
+			productEntity = repository.findById(id);
+		} catch (ResourceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productEntity.buildDomain();
+	}
+	
 	@Override
 	public List<Product> getProduct() {
 		List<Product> products = new ArrayList<Product>();
@@ -60,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
 		repository.save(entity);
 		
 	}
+
 	
 	
 
