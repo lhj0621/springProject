@@ -43,6 +43,13 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return "/users/info";
 	}
+	
+	@GetMapping("/{id}")
+	public String getProductid(@PathVariable(value = "id") Long id, Model model) {
+		Product product = productService.getProductById(id);
+		model.addAttribute("product", product);
+		return "/users/info";
+	}
 	@GetMapping("{id}/delete")
 	public String deleteProducId(@PathVariable(value = "id") Long id, @Valid Product formProduct, Model model,HttpSession session) {
 	
