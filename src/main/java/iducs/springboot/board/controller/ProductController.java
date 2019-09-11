@@ -24,29 +24,29 @@ public class ProductController {
 	@Autowired ProductService productService;
 	
 	@GetMapping("")
-	public String getRroduct(Model model,HttpSession session) {
-		List<Product> products = productService.getProduct();
+	public String getRroduct(Model model,HttpSession session) { 
+		List<Product> products = productService.getProduct(); 
 		model.addAttribute("product",products);
 		return "/product/list";
 	}
 	@PostMapping("")
 	public String createAnswer(@Valid Product formProduct,Model model) {
 
-		productService.saveProduct(formProduct);
+		productService.saveProduct(formProduct); //저장
 		model.addAttribute("prodcut",formProduct);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/{id}")
 	public String getProductName(@PathVariable(value = "name") String name, Model model) {
-		Product product = productService.getProductByName(name);
+		Product product = productService.getProductByName(name); //name조회
 		model.addAttribute("product", product);
 		return "/users/info";
 	}
 	
 	@GetMapping("/{id}")
 	public String getProductid(@PathVariable(value = "id") Long id, Model model) {
-		Product product = productService.getProductById(id);
+		Product product = productService.getProductById(id); //id조회
 		model.addAttribute("product", product);
 		return "/users/info";
 	}
